@@ -1,7 +1,7 @@
 ---
 layout: page
-title: docs.aiops.ru telegram чат
-description: docs.aiops.ru telegram чат
+title: docs.agenticops.ru telegram чат
+description: docs.agenticops.ru telegram чат
 keywords: chat, telegram, mlops
 permalink: /chat/
 ---

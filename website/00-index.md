@@ -1,150 +1,78 @@
 ---
 layout: page
-title: Kubernetes for Generative AI Solutions
+title: AgenticOps
 permalink: /
 ---
 
-# Kubernetes for Generative AI Solutions
-
-<br/>
-
-// GitHub  
-https://github.com/webmakaka/Kubernetes-for-Generative-AI-Solutions/tree/main
-
-<br/>
-
-### Подготовка окружения
-
-<br/>
-
-// HuggingFace
-https://huggingface.co/docs/huggingface_hub/en/installation
-
-<br/>
+# AgenticOps
 
 ```
-$ pip install --upgrade huggingface_hub
-```
+Всем привет! Мы запускаем КЛУБ ПО ПРОЕКТИРОВАНИЮ И РАЗРАБОТКЕ AI-СИСТЕМ
+⚡️⚡️⚡️
 
-<br/>
+В рамках инициативы мы хотим не просто говорить о том, «как писать код с помощью AI» (хотя и об этом тоже), но и сфокусироваться на архитектуре: как организовывать, развивать и поддерживать полноценные AI-системы и агентские приложения.
 
-```
-// https://huggingface.co/docs/huggingface_hub/en/guides/cli
-$ curl -LsSf https://hf.co/cli/install.sh | bash
+────────────
+ФОРМАТ
 
+Сейчас в сети полно материалов о том, как создавать AI-системы. Есть целое море бесплатных курсов, но в нем сложно ориентироваться. Плюс тот же Claude Code может провести вас по всему процессу создания приложения, если просто общаться с ним.
 
-// GENERATE TOKEN
-https://huggingface.co/settings/tokens
+Но нам, людям, часто не хватает живого общения и возможности посмотреть, как работают другие инженеры. Мы хотим делать то, что обычно называлось парным программированием или командным проектированием у доски.
 
-$ hf auth login
-```
+Формат нашего клуба — это серия встреч, где мы обсуждаем теорию или новости, а затем пробуем подходы на практике и делимся результатами.
 
-<br/>
+────────────
+ЧТО БУДЕМ РАЗБИРАТЬ
 
-### Запуск в docker
+Среди тем нашего клуба:
+▪️Spec-Driven Development и BMAD.
+▪️Исходный код и архитектура агентских систем (OpenClaw, утекшие исходники Claude Code).
+▪️Проблемы безопасности и организация памяти (memory management).
+▪️Подходы, которые идеальны для пет-проектов, но разваливаются в серьезном энтерпрайзе, и наоборот.
+▪️Идеи вроде LLM Wiki и AutoResearch Андрея Карпатого.
+▪️…И многое другое.
 
-<br/>
+────────────
+ВОЗМОЖНЫЙ ФОРМАТ ДЛЯ УЧАСТНИКОВ
 
-```
-$ git clone github.com:webmakaka/Kubernetes-for-Generative-AI-Solutions.git
+Вы разрабатываете собственную систему на базе LLM (тему можете предложить свою или взять нашу). Как только ваш MVP готов, мы помогаем вам подготовиться, и вы презентуете решение участникам клуба. Это выступление на 30–60 минут с фокусом на использованные подходы, инструменты и решенные проблемы (а также забавные и не очень баги). В этом случае вы получаете сертификат RS School.
 
-$ cd Kubernetes-for-Generative-AI-Solutions/ch02
-```
+────────────
+ИЩЕМ СПИКЕРОВ
 
-<br/>
+Приглашаем всех, кто хочет поделиться своим реальным опытом разработки AI-систем.
 
-```
-$ hf download TheBloke/Llama-2-7B-Chat-GGUF llama-2-7b-chat.Q2_K.gguf --local-dir .
-```
+────────────
+ОРГАНИЗАЦИОННЫЕ МОМЕНТЫ
 
-<br/>
+▪️НАГРУЗКА: Встречи 1 раз в неделю.
 
-```
-$ docker build -t my-llama .
+▪️ПЕРВАЯ ВСТРЕЧА: 29 апреля в 18:00 CEST. Это будет первый созвон в рамках нашей инициативы, но присоединиться к клубу можно в любое время!
+
+Регистрация на встречу 29 апреля:
+https://wearecommunity.io/events/ideal-agentic-dev-flow-1
+
+Регистрация на встречу 6 мая:
+https://wearecommunity.io/events/ideal-agentic-dev-flow-2
+
+▪️ОБЩЕНИЕ: проходит в нашем Telegram-чате:
+https://t.me/+VDL4vokIZBNmZjAy
 ```
 
 <br/>
 
-```
-$ docker tag my-llama webmakaka/my-llama
-$ docker push webmakaka/my-llama
-```
+https://huggingface.co/ggml-org/gemma-4-26B-A4B-it-GGUF/tree/main
+
+Качаю модельку: gemma-4-26B-A4B-it-Q4_K_M.gguf
 
 <br/>
 
-```
-$ docker run -p 8000:5000 webmakaka/my-llama
-```
+### Run AI Models Locally with llama.cpp
+
+https://www.youtube.com/watch?v=ZR9S9zXm4ZU
 
 <br/>
 
-```
-// OK!
-$ curl -X POST http://localhost:8000/predict \
-  -H "Content-Type: application/json" \
-  -d '{"prompt":"Create a poem about humanity?","sys_msg":"You are a helpful, respectful, and honest assistant. Always provide safe, unbiased, and positive responses. Avoid harmful, unethical, or illegal content. If a question is unclear or incorrect, explain why. If unsure, do not provide false information."}' \
-  | jq .
-```
+### OpenCode CLI: An AI Terminal Engineers MUST Have
 
-<br/>
-
-### Повтор в kubernetes
-
-<br/>
-
-Minikube + Metal LB
-
-<br/>
-
-```yaml
-$ kubectl create deploy my-llama --image webmakaka/my-llama
-```
-
-<br/>
-
-```
-$ kubectl get pods
-NAME                        READY   STATUS    RESTARTS   AGE
-my-llama-8649ff89c6-djdvd   1/1     Running   0          5m35s
-```
-
-<br/>
-
-```yaml
-$ cat << 'EOF' | kubectl apply -f -
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: my-llama-svc
-  name: my-llama-svc
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-type: "external"
-    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
-spec:
-  ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 5000
-  type: LoadBalancer
-  selector:
-    app: my-llama
-EOF
-```
-
-<br/>
-
-```
-$ export NLB_URL=$(kubectl get svc my-llama-svc -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-$ echo ${NLB_URL}
-```
-
-<br/>
-
-```
-// OK!
-$ curl -X POST http://${NLB_URL}/predict \
-  -H "Content-Type: application/json" \
-  -d '{"prompt":"Create a poem about humanity?","sys_msg":"You are a helpful, respectful, and honest assistant. Always provide safe, unbiased, and positive responses. Avoid harmful, unethical, or illegal content. If a question is unclear or incorrect, explain why. If unsure, do not provide false information."}' \
-  | jq .
-```
+https://www.youtube.com/watch?v=MQxqc14s2gs

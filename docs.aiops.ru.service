@@ -1,5 +1,5 @@
 [Unit]
-Description=docs.aiops.ru
+Description=docs.agenticops.ru
 
 Requires=docker.service
 After=docker.service
@@ -8,14 +8,14 @@ After=docker.service
 
 Restart=always
 TimeoutStartSec=0
-ExecStartPre=-/usr/bin/docker kill docs.aiops.ru
-ExecStartPre=-/usr/bin/docker rm docs.aiops.ru
-ExecStartPre=-/usr/bin/docker pull marley/docs.aiops.ru:latest
-ExecStart=/bin/sh -c '/usr/bin/docker run --name docs.aiops.ru   \
+ExecStartPre=-/usr/bin/docker kill docs.agenticops.ru
+ExecStartPre=-/usr/bin/docker rm docs.agenticops.ru
+ExecStartPre=-/usr/bin/docker pull marley/docs.agenticops.ru:latest
+ExecStart=/bin/sh -c '/usr/bin/docker run --name docs.agenticops.ru   \
  -p 4006:80                        \
- marley/docs.aiops.ru'
-ExecStop=-/usr/bin/docker kill docs.aiops.ru
-ExecStop=-/usr/bin/docker rm docs.aiops.ru
+ marley/docs.agenticops.ru'
+ExecStop=-/usr/bin/docker kill docs.agenticops.ru
+ExecStop=-/usr/bin/docker rm docs.agenticops.ru
 
 [Install]
 WantedBy=multi-user.target

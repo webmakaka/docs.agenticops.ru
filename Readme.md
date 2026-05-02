@@ -1,20 +1,20 @@
-# Исходники сайта [docs.aiops.ru](https://docs.aiops.ru)
+# Исходники сайта [docs.agenticops.ru](https://docs.agenticops.ru)
 
-Запустить docs.aiops.ru на своем хосте с использованием docker контейнера:
+Запустить docs.agenticops.ru на своем хосте с использованием docker контейнера:
 
-    $ docker run -i -t -p 80:80 --name docs.aiops.ru marley/docs.aiops.ru
+    $ docker run -i -t -p 80:80 --name docs.agenticops.ru marley/docs.agenticops.ru
 
 <br/>
 
 ### Как сервис
 
-    # vi /etc/systemd/system/docs.aiops.ru.service
+    # vi /etc/systemd/system/docs.agenticops.ru.service
 
-вставить содержимое файла docs.aiops.ru.service
+вставить содержимое файла docs.agenticops.ru.service
 
-    # systemctl enable docs.aiops.ru.service
-    # systemctl start  docs.aiops.ru.service
-    # systemctl status docs.aiops.ru.service
+    # systemctl enable docs.agenticops.ru.service
+    # systemctl start  docs.agenticops.ru.service
+    # systemctl status docs.agenticops.ru.service
 
 http://localhost:4006
 
@@ -25,8 +25,8 @@ http://localhost:4006
 Инсталлируете docker и docker-compose, далее:
 
     $ cd ~
-    $ mkdir -p docs.aiops.ru && cd docs.aiops.ru
-    $ git clone --depth=1 https://github.com/webmakaka/docs.aiops.ru.git .
+    $ mkdir -p docs.agenticops.ru && cd docs.agenticops.ru
+    $ git clone --depth=1 https://github.com/webmakaka/docs.agenticops.ru.git .
     $ docker-compose up
 
 <br/>
