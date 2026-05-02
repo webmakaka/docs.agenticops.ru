@@ -63,13 +63,55 @@ https://t.me/+VDL4vokIZBNmZjAy
 
 https://huggingface.co/ggml-org/gemma-4-26B-A4B-it-GGUF/tree/main
 
-Качаю модельку: gemma-4-26B-A4B-it-Q4_K_M.gguf
+<!-- Качаю модельку: gemma-4-26B-A4B-it-Q4_K_M.gguf -->
 
 <br/>
 
 ### Run AI Models Locally with llama.cpp
 
 https://www.youtube.com/watch?v=ZR9S9zXm4ZU
+
+<br/>
+
+https://github.com/marcel-dempers/docker-development-youtube-series/tree/master/ai/models/llama-cpp
+
+<br/>
+
+<!-- ```shell
+$ curl -fsSL https://ollama.com/install.sh | sh
+``` -->
+
+https://github.com/ggml-org/llama.cpp/releases
+
+<br/>
+
+```shell
+$ wget https://github.com/ggml-org/llama.cpp/releases/download/b9006/llama-b9006-bin-ubuntu-x64.tar.gz
+$ tar -xvzf llama-b9006-bin-ubuntu-x64.tar.gz
+$ cd llama-b9006
+$ chmod +x llama-cli
+```
+
+<br/>
+
+```shell
+$ sudo wget -O /models/Llama-3.2-1B-Instruct-Q4_K_M.gguf https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+```
+
+<br/>
+
+```shell
+$ ls /models/
+gemma-4-26B-A4B-it-Q4_K_M.gguf  Llama-3.2-1B-Instruct-Q4_K_M.gguf
+```
+
+<br/>
+
+```shell
+// Run from a local GGUF file
+// Use -ngl 0 to disable GPU offload and run on CPU only
+$ ./llama-cli -m /models/Llama-3.2-1B-Instruct-Q4_K_M.gguf -ngl 0 -p "Привет, как дела?"
+```
 
 <br/>
 
