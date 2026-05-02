@@ -61,15 +61,17 @@ https://t.me/+VDL4vokIZBNmZjAy
 
 <br/>
 
-https://huggingface.co/ggml-org/gemma-4-26B-A4B-it-GGUF/tree/main
-
-<!-- Качаю модельку: gemma-4-26B-A4B-it-Q4_K_M.gguf -->
-
 <br/>
 
 ### Run AI Models Locally with llama.cpp
 
 https://www.youtube.com/watch?v=ZR9S9zXm4ZU
+
+<!--
+
+https://huggingface.co/ggml-org/gemma-4-26B-A4B-it-GGUF/tree/main
+
+Качаю модельку: gemma-4-26B-A4B-it-Q4_K_M.gguf -->
 
 <br/>
 
@@ -118,3 +120,106 @@ $ ./llama-cli -m /models/Llama-3.2-1B-Instruct-Q4_K_M.gguf -ngl 0 -p "Приве
 ### OpenCode CLI: An AI Terminal Engineers MUST Have
 
 https://www.youtube.com/watch?v=MQxqc14s2gs
+
+https://opencode.ai/
+
+<br/>
+
+```shell
+$ curl -fsSL https://opencode.ai/install | bash
+```
+
+<br/>
+
+```shell
+$ source ~/.bashrc
+$ opencode
+```
+
+<br/>
+
+```shell
+$ git clone https://github.com/marcel-dempers/docker-development-youtube-series/
+```
+
+<br/>
+
+```shell
+$ opencode run "Simple yes or no only, is this Kubernetes manifset syntax valid @docker-development-youtube-series/kubernetes/pods/pod.yaml"
+```
+
+<br/>
+
+```
+> build · big-pickle
+
+→ Read docker-development-youtube-series/kubernetes/pods/pod.yaml
+
+Yes
+```
+
+<br/>
+
+```shell
+$ cd docker-development-youtube-series/
+$ opencode
+```
+
+<br/>
+
+```shell
+/init
+```
+
+<br/>
+
+Генерит AGENTS.md
+
+<br/>
+
+### MCP Server
+
+<br/>
+
+```shell
+$ sudo apt install -y nodejs npm
+
+$ npm install -g mcp-server-kubernetes
+
+$ opencode mcp add
+```
+
+<br/>
+
+```
+┌  Add MCP server
+│
+◇  Location
+│  Current project
+│
+◇  Enter MCP server name
+│  kubernetes
+│
+◇  Select MCP server type
+│  Local
+│
+◆  Enter command to run
+│  npx -y mcp-server-kubernetes@latest█
+│
+◆  MCP server "kubernetes" added to /home/marley/tmp/docker-development-youtube-series/opencode.json
+│
+└  MCP server added successfully
+```
+
+<br/>
+
+```shell
+$ opencode mcp list
+```
+
+<br/>
+
+```shell
+$ opencode
+/mcps
+```
