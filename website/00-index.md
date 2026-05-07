@@ -63,11 +63,75 @@ https://t.me/+VDL4vokIZBNmZjAy
 
 <br/>
 
+### Gemma 4 in 13 Minutes on your Laptop
+
+https://www.youtube.com/watch?v=nu6Cm7g052U
+
+https://github.com/marcel-dempers/docker-development-youtube-series/tree/master/ai/models/llama-cpp
+
+<br/>
+
+https://huggingface.co/collections/ggml-org/gemma-4
+
+Скачал: gemma-4-E4B-it-Q4_K_M.gguf
+
+<br/>
+
+```
+sudo apt update
+sudo apt install nvidia-driver-595
+```
+
+<br/>
+
+```
+sudo apt-get purge nvidia*
+sudo apt-get autoremove
+sudo apt update
+sudo apt install nvidia-driver-535
+sudo reboot
+```
+
+<br/>
+
+```shell
+$ docker run -it \
+  -v /mnt/dsk1/models/:/models \
+  --gpus all \
+  -p 8080:8080 \
+  --entrypoint bash ghcr.io/ggml-org/llama.cpp:full-cuda
+```
+
+<br/>
+
+```shell
+./llama-cli --help
+```
+
+<br/>
+
+```shell
+./llama-server -m /models/gemma-4-E4B-it-Q4_K_M.gguf \
+  --port 8080 \
+  -ngl 99 \
+  --jinja \
+  -c 131072 \
+  --parallel 1 \
+  --temperature 1.0 \
+  --top-p  0.95 \
+  --top-k 64
+```
+
+<br/>
+
 ### Run AI Models Locally with llama.cpp
 
 https://www.youtube.com/watch?v=ZR9S9zXm4ZU
 
 <!--
+
+
+
 
 https://huggingface.co/ggml-org/gemma-4-26B-A4B-it-GGUF/tree/main
 
