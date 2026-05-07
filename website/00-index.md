@@ -61,8 +61,6 @@ https://t.me/+VDL4vokIZBNmZjAy
 
 <br/>
 
-<br/>
-
 ### Gemma 4 in 13 Minutes on your Laptop
 
 https://www.youtube.com/watch?v=nu6Cm7g052U
@@ -77,19 +75,71 @@ https://huggingface.co/collections/ggml-org/gemma-4
 
 <br/>
 
+```shell
+$ cat /proc/driver/nvidia/version
+NVRM version: NVIDIA UNIX x86_64 Kernel Module  535.288.01  Tue Nov 18 18:26:41 UTC 2025
 ```
-sudo apt update
-sudo apt install nvidia-driver-595
+
+<br/>
+
+```shell
+$ ubuntu-drivers devices
+== /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 ==
+modalias : pci:v000010DEd00001F82sv000010DEsd00001F82bc03sc00i00
+vendor   : NVIDIA Corporation
+model    : TU117 [GeForce GTX 1650]
+driver   : nvidia-driver-535 - distro non-free
+driver   : nvidia-driver-545-open - distro non-free
+driver   : nvidia-driver-418-server - distro non-free
+driver   : nvidia-driver-580-server - distro non-free
+driver   : nvidia-driver-470-server - distro non-free
+driver   : nvidia-driver-595-server-open - distro non-free
+driver   : nvidia-driver-545 - distro non-free
+driver   : nvidia-driver-595-open - distro non-free recommended
+driver   : nvidia-driver-580 - distro non-free
+driver   : nvidia-driver-565 - third-party non-free
+driver   : nvidia-driver-580-open - distro non-free
+driver   : nvidia-driver-565-open - third-party non-free
+driver   : nvidia-driver-535-server - distro non-free
+driver   : nvidia-driver-595 - distro non-free
+driver   : nvidia-driver-470 - distro non-free
+driver   : nvidia-driver-535-server-open - distro non-free
+driver   : nvidia-driver-535-open - distro non-free
+driver   : nvidia-driver-595-server - distro non-free
+driver   : nvidia-driver-580-server-open - distro non-free
+driver   : nvidia-driver-450-server - distro non-free
+driver   : xserver-xorg-video-nouveau - distro free builtin
+```
+
+<br/>
+
+```shell
+$ sudo apt update
+$ sudo apt install -y nvidia-driver-595
+```
+
+<br/>
+
+```shell
+$ dpkg -l | grep nvidia-driver
+ii  nvidia-driver-595                          595.58.03-0ubuntu0.22.04.1                       amd64        NVIDIA driver metapackage
+```
+
+<br/>
+
+```shell
+$ sudo reboot
 ```
 
 <br/>
 
 ```
-sudo apt-get purge nvidia*
-sudo apt-get autoremove
-sudo apt update
-sudo apt install nvidia-driver-535
-sudo reboot
+// Если бы пришлось откатывать
+// $ sudo apt-get purge nvidia*
+// $ sudo apt-get autoremove
+// $ sudo apt update
+// $ sudo apt install nvidia-driver-535
+// $ sudo reboot
 ```
 
 <br/>
@@ -105,13 +155,19 @@ $ docker run -it \
 <br/>
 
 ```shell
-./llama-cli --help
+# ./llama-cli --help
+```
+
+```shell
+# ./llama-cli -m /models/gemma-4-E4B-it-Q4_K_M.gguf -ngl 99
 ```
 
 <br/>
 
 ```shell
-./llama-server -m /models/gemma-4-E4B-it-Q4_K_M.gguf \
+// Hosting a Model
+# ./llama-server -m /models/gemma-4-E4B-it-Q4_K_M.gguf \
+  --host 0.0.0.0 \
   --port 8080 \
   -ngl 99 \
   --jinja \
@@ -120,6 +176,13 @@ $ docker run -it \
   --temperature 1.0 \
   --top-p  0.95 \
   --top-k 64
+```
+
+<br/>
+
+```
+// OK!
+http://localhost:8080/
 ```
 
 <br/>
@@ -177,6 +240,7 @@ gemma-4-26B-A4B-it-Q4_K_M.gguf  Llama-3.2-1B-Instruct-Q4_K_M.gguf
 // Run from a local GGUF file
 // Use -ngl 0 to disable GPU offload and run on CPU only
 $ ./llama-cli -m /models/Llama-3.2-1B-Instruct-Q4_K_M.gguf -ngl 0 -p "Привет, как дела?"
+$ ./llama-cli -m /models/gemma-4-E4B-it-Q4_K_M.gguf -ngl 0 -p "Привет, как дела?"
 ```
 
 <br/>
@@ -248,7 +312,7 @@ $ opencode
 ```shell
 $ sudo apt install -y nodejs npm
 
-$ npm install -g mcp-server-kubernetes
+$ sudo npm install -g mcp-server-kubernetes
 
 $ opencode mcp add
 ```
@@ -258,19 +322,16 @@ $ opencode mcp add
 ```
 ┌  Add MCP server
 │
-◇  Location
-│  Current project
-│
 ◇  Enter MCP server name
-│  kubernetes
+│  Kubernetes-MCP-Server
 │
 ◇  Select MCP server type
 │  Local
 │
-◆  Enter command to run
-│  npx -y mcp-server-kubernetes@latest█
+◇  Enter command to run
+│  npx -y mcp-server-kubernetes@latest
 │
-◆  MCP server "kubernetes" added to /home/marley/tmp/docker-development-youtube-series/opencode.json
+◆  MCP server "Kubernetes-MCP-Server" added to /home/marley/.config/opencode/opencode.json
 │
 └  MCP server added successfully
 ```
@@ -279,6 +340,78 @@ $ opencode mcp add
 
 ```shell
 $ opencode mcp list
+
+┌  MCP Servers
+│
+●  ✓ Kubernetes-MCP-Server connected
+│      npx -y mcp-server-kubernetes@latest
+│
+└  1 server(s)
+```
+
+<br/>
+
+```shell
+$ cat /home/marley/.config/opencode/opencode.json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "Kubernetes-MCP-Server": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "mcp-server-kubernetes@latest"
+      ]
+    }
+  }
+}
+```
+
+<br/>
+
+```shell
+$ vi /home/marley/.config/opencode/opencode.json
+```
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "llama.cpp": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "llama-server (local)",
+      "options": {
+        "baseURL": "http://localhost:8080/v1"
+      },
+      "models": {
+        "gemma-4-E4B-it-Q4_K_M.gguf": {
+          "name": "gemma-4-E4B-it-Q4_K_M (local)",
+          "limit": {
+            "context": 16384,
+            "output": 4096
+          }
+        }
+      }
+    }
+  },
+  "mcp": {
+    "Kubernetes-MCP-Server": {
+      "type": "local",
+      "command": ["npx", "-y", "mcp-server-kubernetes@latest"]
+    }
+  }
+}
+```
+
+<br/>
+
+```shell
+$ ./llama-server -m /models/gemma-4-E4B-it-Q4_K_M.gguf \
+  --host 0.0.0.0 \
+  --port 8080 \
+  -ngl 99 \
+  -c 8192
 ```
 
 <br/>
@@ -287,3 +420,5 @@ $ opencode mcp list
 $ opencode
 /mcps
 ```
+
+<br/>
